@@ -81,6 +81,7 @@ if IS_PYTHON2:
         def wrapper(self):
             return self.__repr_unicode__().encode('utf-8')
         cls.__repr__ = wrapper
+        return cls
 
     def nine(cls):
         '''All the above class decorators in one.'''
@@ -90,6 +91,7 @@ if IS_PYTHON2:
             cls = implements_iterator(cls)
         if hasattr(cls, '__repr__'):
             cls = implements_repr(cls)
+        return cls
 else:
     implements_to_string = implements_iterator = implements_repr = nine = \
         lambda cls: cls
