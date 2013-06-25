@@ -11,3 +11,4 @@ class TestNine(unittest.TestCase):
             class_types, range, range_list, reraise,
             iterkeys, itervalues, iteritems, map, zip, filter,
             implements_iterator, implements_to_string, implements_repr, nine)
+        assert bytes  # which is a builtin on all supported Python versions

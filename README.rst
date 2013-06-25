@@ -2,8 +2,8 @@ nine
 ====
 
 When the best Python 2/Python 3 compatibility libraries -- especially
-the famous *six* library invented by Benjamin Peterson --
-were invented, they were written from the point of view of a Python 2
+the famous *six* module invented by Benjamin Peterson --
+were created, they were written from the point of view of a Python 2
 programmer starting to grok Python 3.
 
 It is 2013.
@@ -25,8 +25,8 @@ meaning they return iterators, not lists.
 
 The author(s) of *nine* donate this module to the public domain.
 
-To understand most of the intricacies involved in porting your code from
-Python 2 to Python 3, I recommend reading this:
+To understand most of the intricacies involved in achieving 2&3 compatibility
+in a single codebase, I recommend reading this:
 http://lucumr.pocoo.org/2013/5/21/porting-to-python-3-redux/
 
 Using nine
@@ -60,4 +60,7 @@ Want StringIO? I recommend you build lists instead. But if you really need it::
         NativeStringIO = StringIO
 
 The coverage of Python version differences isn't exhaustive and maybe the
-solutions aren't optimal, but contributions are welcome.
+solutions aren't optimal, but contributions are welcome. The project is
+maintained at:
+
+https://github.com/nandoflorestan/nine
