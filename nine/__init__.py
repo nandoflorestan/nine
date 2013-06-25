@@ -1,6 +1,18 @@
 # -*- coding: utf-8 -*-
 
-'''For documentation, please see the file README.rst.'''
+'''For documentation, please see the file README.rst.
+
+Here is a checklist of tasks when starting to apply *nine* on Python 2 code:
+
+* Replace str(), usually with nine's native_str() or with bytes()
+* Replace unicode() with str() and ``from nine import str``
+* Replace __unicode__() with __str__(); apply the *nine* decorator on the class
+* Apply the *nine* decorator on classes that define __repr__()
+
+If you had been using *six* or another library before:
+
+* Replace ``string_types`` with ``basestring``
+'''
 
 import sys
 # Test for Python 2, not 3; don't get bitten when Python 4 comes out:
@@ -9,6 +21,7 @@ IS_PYPY = hasattr(sys, 'pypy_translation_info')
 del sys
 
 if IS_PYTHON2:  # Rename Python 2 builtins so they become like Python 3
+    native_str = bytes
     str = unicode
     basestring = basestring
     integer_types = (int, long)
@@ -22,8 +35,7 @@ if IS_PYTHON2:  # Rename Python 2 builtins so they become like Python 3
     iteritems = lambda d: d.iteritems()
     from itertools import imap as map, izip as zip, ifilter as filter
 else:  # For Python 3, declare these variables so they can be chain imported:
-    str = str
-    basestring = str
+    basestring = native_str = str = str
     integer_types = int
     class_types = type
     range = range
