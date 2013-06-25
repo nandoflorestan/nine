@@ -61,6 +61,5 @@ Want StringIO? I recommend you build lists instead. But if you really need it::
 
 Our coverage of Python version differences isn't exhaustive and maybe the
 solutions aren't optimal, but contributions are welcome. See the
-`project page <https://github.com/nandoflorestan/nine>`_!
-We also have `continuous integration at Travis-CI`
-<https://travis-ci.org/nandoflorestan/nine>`_.
+`project page <https://github.com/nandoflorestan/nine>`_! We also have
+`continuous integration at Travis-CI <https://travis-ci.org/nandoflorestan/nine>`_.
