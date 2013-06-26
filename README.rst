@@ -1,9 +1,9 @@
 nine
 ====
 
-When the best Python 2/Python 3 compatibility libraries -- especially
-the famous *six* module invented by Benjamin Peterson --
-were created, they were written from the point of view of a Python 2
+When the best Python 2/Python 3 compatibility modules -- especially the famous
+`*six* library invented by Benjamin Peterson <https://pypi.python.org/pypi/six>`_
+-- were created, they were written from the point of view of a Python 2
 programmer starting to grok Python 3.
 
 It is 2013.
