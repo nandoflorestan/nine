@@ -41,14 +41,28 @@ Then import variables from *nine*, as per this boilerplate::
     from nine import (IS_PYTHON2, str, basestring, native_str, chr,
         integer_types, class_types, range, range_list, reraise,
         iterkeys, itervalues, iteritems, map, zip, filter,
-        implements_iterator, implements_to_string, implements_repr, nine)
+        implements_iterator, implements_to_string, implements_repr, nine,
+        nimport)
 
-If you need *pickle*, import it like this::
+Importing moved stuff
+=====================
+
+Next, we deal with the problem of importing moved names. For instance,
+instead of writing this to import pickle::
 
     try:
         import cPickle as pickle  # Python 2.x
     except ImportError:
-        import pickle
+        import pickle  # Python 3 automatically uses the C version.
+
+...you can write this::
+
+    pickle = nimport('pickle')
+
+For variables that have been moved: In the argument, please separate the module
+from the variable with a colon::
+
+    name2codepoint = nimport('html.entities:name2codepoint')
 
 Want StringIO? I recommend you build lists instead. But if you really need it::
 

@@ -3,10 +3,11 @@
 '''For documentation, please see the file README.rst.'''
 
 import sys
-# Test for Python 2, not 3; don't get bitten when Python 4 comes out:
+# Test for Python 2, not 3; don't get bitten when Python 4 appears:
 IS_PYTHON2 = (sys.version_info[0] == 2)
 IS_PYPY = hasattr(sys, 'pypy_translation_info')
 del sys
+from importlib import import_module
 
 if IS_PYTHON2:  # Rename Python 2 builtins so they become like Python 3
     native_str = bytes
@@ -86,3 +87,96 @@ if IS_PYTHON2:
 else:
     implements_to_string = implements_iterator = implements_repr = nine = \
         lambda cls: cls
+
+
+# http://docs.pythonsprints.com/python3_porting/py-porting.html
+_moved = {  # Mapping from Python 3 to Python 2 location
+    'builtins': '__builtin__',
+    'configparser': 'ConfigParser',
+    'copyreg': 'copy_reg',
+    'html.entities:name2codepoint': 'htmlentitydefs:name2codepoint',
+    '_markupbase': 'markupbase',
+    'pickle': 'cPickle',
+    'queue': 'Queue',
+    'reprlib': 'repr',
+    'socketserver': 'SocketServer',
+    '_thread': 'thread',
+    '_dummy_thread': 'dummy_thread',
+    'tkinter': 'Tkinter',
+    'http.client':    'httplib',
+    'http.cookiejar': 'cookielib',
+    'http.cookies':   'Cookie',
+    'html.entities':  'htmlentitydefs',
+    'html.parser':    'HTMLParser',
+    'urllib.robotparser': 'robotparser',
+    'urllib.error:ContentTooShortError': 'urllib:ContentTooShortError',
+    'urllib.parse':              'urlparse',
+    'urllib.parse:quote':        'urllib:quote',
+    'urllib.parse:quote_plus':   'urllib:quote_plus',
+    'urllib.parse:unquote':      'urllib:unquote',
+    'urllib.parse:unquote_plus': 'urllib:unquote_plus',
+    'urllib.parse:urlencode':    'urllib:urlencode',
+    'urllib.request:getproxies':     'urllib:getproxies',
+    'urllib.request:pathname2url':   'urllib:pathname2url',
+    'urllib.request:url2pathname':   'urllib:url2pathname',
+    'urllib.request:urlcleanup':     'urllib:urlcleanup',
+    'urllib.request:urlretrieve':    'urllib:urlretrieve',
+    'urllib.request:URLopener':      'urllib:URLopener',
+    'urllib.request:FancyURLopener': 'urllib:FancyURLopener',
+    'urllib.request:urlopen':                'urllib2:urlopen',
+    'urllib.request:install_opener':         'urllib2:install_opener',
+    'urllib.request:build_opener':           'urllib2:build_opener',
+    'urllib.error:URLError':                 'urllib2:URLError',
+    'urllib.error:HTTPError':                'urllib2:HTTPError',
+    'urllib.request:Request':                'urllib2:Request',
+    'urllib.request:OpenerDirector':         'urllib2:OpenerDirector',
+    'urllib.request:BaseHandler':            'urllib2:BaseHandler',
+    'urllib.request:HTTPDefaultErrorHandler':
+    'urllib2:HTTPDefaultErrorHandler',
+    'urllib.request:HTTPRedirectHandler':    'urllib2:HTTPRedirectHandler',
+    'urllib.request:HTTPCookieProcessor':    'urllib2:HTTPCookieProcessor',
+    'urllib.request:ProxyHandler':           'urllib2:ProxyHandler',
+    'urllib.request:HTTPPasswordMgr':        'urllib2:HTTPPasswordMgr',
+    'urllib.request:HTTPPasswordMgrWithDefaultRealm':
+    'urllib2:HTTPPasswordMgrWithDefaultRealm',
+    'urllib.request:AbstractBasicAuthHandler':
+    'urllib2:AbstractBasicAuthHandler',
+    'urllib.request:HTTPBasicAuthHandler':   'urllib2:HTTPBasicAuthHandler',
+    'urllib.request:ProxyBasicAuthHandler':  'urllib2:ProxyBasicAuthHandler',
+    'urllib.request:AbstractDigestAuthHandler':
+    'urllib2:AbstractDigestAuthHandler',
+    'urllib.request:HTTPDigestAuthHandler':  'urllib2:HTTPDigestAuthHandler',
+    'urllib.request:ProxyDigestAuthHandler': 'urllib2:ProxyDigestAuthHandler',
+    'urllib.request:HTTPHandler':            'urllib2:HTTPHandler',
+    'urllib.request:HTTPSHandler':           'urllib2:HTTPSHandler',
+    'urllib.request:FileHandler':            'urllib2:FileHandler',
+    'urllib.request:FTPHandler':             'urllib2:FTPHandler',
+    'urllib.request:CacheFTPHandler':        'urllib2:CacheFTPHandler',
+    'urllib.request:UnknownHandler':         'urllib2:UnknownHandler',
+}
+
+
+def nimport(spec):
+    '''Given a spec such as "os.path:join", imports either a module or
+    a name from a module, and returns it. Example usage::
+
+        join = nimport('os.path:join')
+
+    The spec should provide the new location of the module or variable.
+    *nine* is supposed to know the corresponding, old Python 2 location.
+    Bug reports and pull requests are welcome.
+    '''
+    assert spec
+    if IS_PYTHON2:  # Get the Python 2 location of the name, first.
+        spec = _moved.get(spec, spec)
+    alist = spec.split(':')
+    if len(alist) > 2:
+        raise ValueError('The argument *spec* cannot have more than '
+            '2 colon-separated parts: "{}"'.format(spec))
+    elif len(alist) == 2:
+        module, name = alist
+    elif len(alist) == 1:
+        module = alist[0]
+        name = None
+    module = import_module(module)
+    return getattr(module, name) if name else module

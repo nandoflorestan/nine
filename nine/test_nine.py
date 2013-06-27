@@ -10,4 +10,7 @@ class TestNine(unittest.TestCase):
         from nine import (IS_PYTHON2, str, basestring, native_str,
             integer_types, class_types, range, range_list, reraise,
             iterkeys, itervalues, iteritems, map, zip, filter,
-            implements_iterator, implements_to_string, implements_repr, nine)
+            implements_iterator, implements_to_string, implements_repr, nine,
+            nimport, _moved)
+        for key in _moved:
+            assert nimport(key)
