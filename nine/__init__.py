@@ -12,6 +12,8 @@ if IS_PYTHON2:  # Rename Python 2 builtins so they become like Python 3
     native_str = bytes
     str = unicode
     basestring = basestring
+    byte_chr = chr  # does not seem to have an equivalent in Python 3.
+    chr = unichr  # takes an int and returns the corresponding unicode char
     integer_types = (int, long)
     from types import ClassType
     class_types = (type, ClassType)
@@ -24,6 +26,7 @@ if IS_PYTHON2:  # Rename Python 2 builtins so they become like Python 3
     from itertools import imap as map, izip as zip, ifilter as filter
 else:  # For Python 3, declare these variables so they can be chain imported:
     basestring = native_str = str = str
+    chr = chr
     integer_types = int
     class_types = type
     range = range
