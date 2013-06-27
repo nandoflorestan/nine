@@ -9,6 +9,12 @@ from codecs import open
 with open('README.rst', encoding='utf-8') as f:
     long_description = f.read()
 
+requires = []
+# Python 2.6 does not have importlib, but a package exists for that
+from sys import version_info
+if version_info[:2] < (2, 7):
+    requires.append('importlib')
+
 setup(
     url='https://github.com/nandoflorestan/nine',
     name="nine",
@@ -23,7 +29,7 @@ setup(
     long_description=long_description,
     zip_safe=False,
     test_suite='nine',
-    install_requires=[],
+    install_requires=requires,
     keywords=["python 2", 'python 3', 'compatibility'],
     classifiers=[  # http://pypi.python.org/pypi?:action=list_classifiers
         "Development Status :: 5 - Production/Stable",
