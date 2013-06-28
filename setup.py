@@ -19,7 +19,7 @@ setup(
     url='https://github.com/nandoflorestan/nine',
     name="nine",
     author='Nando Florestan',
-    version='0.2.1dev',
+    version='0.3.0',
     license='Public domain',
     packages=find_packages(),
     include_package_data=True,
