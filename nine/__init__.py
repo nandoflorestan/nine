@@ -51,22 +51,27 @@ else:
 # ===== Class decorators =====
 if IS_PYTHON2:
     def implements_to_string(cls):
-        '''Class decorator. You define __str__() and Python 2 gets both
-        __unicode__() and __str__().
+        '''Class decorator. You define __str__() and it is moved to
+        __unicode__() on Python 2.
+
+        Additionally, if you define __bytes__(), it becomes __str__() on
+        Python 2. If __bytes__() is not defined, __str__() executes
+        __unicode__() and encodes the result to utf-8.
         '''
         cls.__unicode__ = cls.__str__
-        cls.__str__ = lambda x: x.__unicode__().encode('utf-8')
+        cls.__str__ = cls.__bytes__ if hasattr(cls, '__bytes__') \
+            else lambda x: x.__unicode__().encode('utf-8')
         return cls
 
     def implements_iterator(cls):
-        '''Apparently, next() has been renamed to __next__().'''
+        '''Class decorator. next() has been renamed to __next__().'''
         cls.next = cls.__next__
         del cls.__next__
         return cls
 
     def implements_repr(cls):
-        '''You implement __repr__() returning a unicode string, and in
-        Python 2, I encode it for you.
+        '''Class decorator. You implement __repr__() returning a
+        unicode string, and in Python 2, I encode it for you.
         '''
         cls.__repr_unicode__ = cls.__repr__
 
@@ -76,7 +81,17 @@ if IS_PYTHON2:
         return cls
 
     def nine(cls):
-        '''All the above class decorators in one.'''
+        '''Class decorator for Python 2 and 3 compatibility of magic methods.
+        You define the magic methods with their Python 3 names and,
+        on Python 2, they get their corresponding names. You may write:
+
+        * __next__(). Use the next(iterator) function to iterate.
+        * __str__(): must return a unicode string.
+        * __repr__(): must return a unicode string.
+        * __bytes__(): must return a bytes object.
+
+        (*nine* is all the above class decorators in one.)
+        '''
         if hasattr(cls, '__str__'):
             cls = implements_to_string(cls)
         if hasattr(cls, '__next__'):
@@ -84,7 +99,7 @@ if IS_PYTHON2:
         if hasattr(cls, '__repr__'):
             cls = implements_repr(cls)
         return cls
-else:
+else:  # On Python 3, these class decorators do nothing:
     implements_to_string = implements_iterator = implements_repr = nine = \
         lambda cls: cls
 
@@ -107,7 +122,7 @@ _moved = {  # Mapping from Python 3 to Python 2 location
     'http.cookiejar': 'cookielib',
     'http.cookies':   'Cookie',
     'html.entities':  'htmlentitydefs',
-    'html.parser':    'HTMLParser',
+    'html.parser:HTMLParser': 'htmllib:HTMLParser',
     'urllib.robotparser': 'robotparser',
     'urllib.error:ContentTooShortError': 'urllib:ContentTooShortError',
     'urllib.parse':              'urlparse',
