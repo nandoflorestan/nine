@@ -105,11 +105,10 @@ else:  # On Python 3, these class decorators do nothing:
 
 
 # http://docs.pythonsprints.com/python3_porting/py-porting.html
-_moved = {  # Mapping from Python 3 to Python 2 location
+_moved = {  # Mapping from Python 3 to Python 2 location. Needs improvement.
     'builtins': '__builtin__',
     'configparser': 'ConfigParser',
     'copyreg': 'copy_reg',
-    'html.entities:name2codepoint': 'htmlentitydefs:name2codepoint',
     '_markupbase': 'markupbase',
     'pickle': 'cPickle',
     'queue': 'Queue',
@@ -121,7 +120,10 @@ _moved = {  # Mapping from Python 3 to Python 2 location
     'http.client':    'httplib',
     'http.cookiejar': 'cookielib',
     'http.cookies':   'Cookie',
-    'html.entities':  'htmlentitydefs',
+    'html.entities':                'htmlentitydefs',
+    'html.entities:entitydefs':     'htmlentitydefs:entitydefs',
+    'html.entities:name2codepoint': 'htmlentitydefs:name2codepoint',
+    'html.entities:codepoint2name': 'htmlentitydefs:codepoint2name',
     'html.parser:HTMLParser': 'htmllib:HTMLParser',
     'urllib.robotparser': 'robotparser',
     'urllib.error:ContentTooShortError': 'urllib:ContentTooShortError',
