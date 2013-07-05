@@ -124,6 +124,7 @@ _moved = {  # Mapping from Python 3 to Python 2 location. Needs improvement.
     'html.entities:entitydefs':     'htmlentitydefs:entitydefs',
     'html.entities:name2codepoint': 'htmlentitydefs:name2codepoint',
     'html.entities:codepoint2name': 'htmlentitydefs:codepoint2name',
+    'html:escape': 'cgi:escape',
     'html.parser:HTMLParser': 'htmllib:HTMLParser',
     'urllib.robotparser': 'robotparser',
     'urllib.error:ContentTooShortError': 'urllib:ContentTooShortError',
