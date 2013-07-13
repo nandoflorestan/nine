@@ -24,10 +24,10 @@ if IS_PYTHON2:  # Rename Python 2 builtins so they become like Python 3
     iterkeys = lambda d: d.iterkeys()
     itervalues = lambda d: d.itervalues()
     iteritems = lambda d: d.iteritems()
-    from itertools import imap as map, izip as zip, ifilter as filter
+    from itertools import ifilter as filter, imap as map, izip as zip
 else:  # For Python 3, declare these variables so they can be chain imported:
     basestring = native_str = str = str
-    chr = chr
+    chr = chr  # No need to do the same to ord()
     integer_types = int
     class_types = type
     range = range
