@@ -122,7 +122,6 @@ _moved = {  # Mapping from Python 3 to Python 2 location. Needs improvement.
     'http.cookies':   'Cookie',
     'html.entities':                'htmlentitydefs',
     'html.entities:entitydefs':     'htmlentitydefs:entitydefs',
-    'html.entities:html5':          'htmlentitydefs:html5',
     'html.entities:name2codepoint': 'htmlentitydefs:name2codepoint',
     'html.entities:codepoint2name': 'htmlentitydefs:codepoint2name',
     'html:escape': 'cgi:escape',
