@@ -1,5 +1,5 @@
-nine
-====
+Let's write Python 3 right now!
+===============================
 
 When the best Python 2/Python 3 compatibility modules -- especially the famous
 `*six* library invented by Benjamin Peterson <https://pypi.python.org/pypi/six>`_
@@ -16,7 +16,9 @@ ensure that the thing worketh on Python 2.7 and, possibly, even 2.6.
 Just before Python 2 is finally phased out, thine codebase shall
 look more like 3 than like 2.
 
-*nine* facilitates this new point of view.
+*nine* facilitates this new point of view. You can write code
+that is as 3ish as possible while still supporting 2.6.
+Very comfortable for writing new projects.
 
 For instance, you don't type ``unicode`` anymore, you type ``str``, and *nine*
 makes ``str`` point to ``unicode`` on Python 2 (if you use our boilerplate).
@@ -40,7 +42,7 @@ Then import variables from *nine*, as per this boilerplate::
                             unicode_literals)
     from nine import (IS_PYTHON2, str, basestring, native_str, chr,
         integer_types, class_types, range, range_list, reraise,
-        iterkeys, itervalues, iteritems, map, zip, filter,
+        iterkeys, itervalues, iteritems, map, zip, filter, input,
         implements_iterator, implements_to_string, implements_repr, nine,
         nimport)
 
@@ -74,6 +76,11 @@ Want StringIO? I recommend you build lists instead. But if you really need it::
         NativeStringIO = StringIO
 
 Our coverage of Python version differences probably isn't exhaustive,
-but contributions are welcome. See the
-`project page <https://github.com/nandoflorestan/nine>`_! We also have
+but contributions are welcome.
+
+When in doubt,
+`use the source <https://github.com/nandoflorestan/nine/blob/master/nine/__init__.py>`_!
+
+See the
+`project page at GitHub <https://github.com/nandoflorestan/nine>`_! We also have
 `continuous integration at Travis-CI <https://travis-ci.org/nandoflorestan/nine>`_.

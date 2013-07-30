@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-'''For documentation, please see the file README.rst.'''
+'''For documentation and usage, please see the file README.rst.'''
 
 import sys
 # Test for Python 2, not 3; don't get bitten when Python 4 appears:
@@ -25,6 +25,8 @@ if IS_PYTHON2:  # Rename Python 2 builtins so they become like Python 3
     itervalues = lambda d: d.itervalues()
     iteritems = lambda d: d.iteritems()
     from itertools import ifilter as filter, imap as map, izip as zip
+    # In Python 2, *input* was equivalent to eval(raw_input(prompt)):
+    input = raw_input
 else:  # For Python 3, declare these variables so they can be chain imported:
     basestring = native_str = str = str
     chr = chr  # No need to do the same to ord()
@@ -38,6 +40,7 @@ else:  # For Python 3, declare these variables so they can be chain imported:
     filter = filter
     map = map
     zip = zip
+    input = input
 
 if IS_PYTHON2:
     # Turn code into string to avoid SyntaxError on Python 3:
@@ -105,7 +108,7 @@ else:  # On Python 3, these class decorators do nothing:
 
 
 # http://docs.pythonsprints.com/python3_porting/py-porting.html
-_moved = {  # Mapping from Python 3 to Python 2 location. Needs improvement.
+_moved = {  # Mapping from Python 3 to Python 2 location. May need improvement.
     'builtins': '__builtin__',
     'configparser': 'ConfigParser',
     'copyreg': 'copy_reg',
