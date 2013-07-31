@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
-'''For documentation and usage, please see the file README.rst.'''
+'''For documentation and usage, please see the file README.rst.
+
+This module is donated to the public domain.
+'''
 
 import sys
 # Test for Python 2, not 3; don't get bitten when Python 4 appears:
