@@ -17,7 +17,7 @@ if version_info[:2] < (2, 7):
 
 setup(
     name="nine",
-    version='0.3.3dev',
+    version='0.3.3',
     description="Python 2 / 3 compatibility, like six, but favouring Python 3",
     long_description=long_description,
     url='https://github.com/nandoflorestan/nine',
