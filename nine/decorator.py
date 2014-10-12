@@ -44,6 +44,7 @@ class reify(object):
        1
        >>> # jammy func not called the second time; it replaced itself with 1
     """
+
     def __init__(self, wrapped):
         self.wrapped = wrapped
         try:
