@@ -19,6 +19,7 @@ if IS_PYTHON2:  # Rename Python 2 builtins so they become like Python 3
     byte_chr = chr  # does not seem to have an equivalent in Python 3.
     chr = unichr  # takes an int and returns the corresponding unicode char
     integer_types = (int, long)
+    long = long
     from types import ClassType
     class_types = (type, ClassType)
     del ClassType
