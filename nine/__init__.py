@@ -33,7 +33,8 @@ if IS_PYTHON2:  # Rename Python 2 builtins so they become like Python 3
 else:  # For Python 3, declare these variables so they can be chain imported:
     basestring = native_str = str = str
     chr = chr  # No need to do the same to ord()
-    integer_types = int
+    integer_types = (int,)
+    long = int
     class_types = type
     range = range
     range_list = lambda *a: list(range(*a))
@@ -195,7 +196,8 @@ def nimport(spec):
         spec = _moved.get(spec, spec)
     alist = spec.split(':')
     if len(alist) > 2:
-        raise ValueError('The argument *spec* cannot have more than '
+        raise ValueError(
+            'The argument *spec* cannot have more than '
             '2 colon-separated parts: "{}"'.format(spec))
     elif len(alist) == 2:
         module, name = alist
