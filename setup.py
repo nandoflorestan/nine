@@ -29,8 +29,9 @@ setup(
     zip_safe=False,
     test_suite='nine',
     install_requires=requires,
-    keywords=["python 2", 'python 3', 'python2', 'python3', 'migration',
-              'compatibility', 'nine', 'six', '2to3', '3to2', 'future',
+    keywords=[
+        "python 2", 'python 3', 'python2', 'python3', 'migration',
+        'compatibility', 'nine', 'six', '2to3', '3to2', 'future',
     ],
     classifiers=[  # http://pypi.python.org/pypi?:action=list_classifiers
         "Development Status :: 5 - Production/Stable",

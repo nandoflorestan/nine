@@ -6,9 +6,9 @@ When the best Python 2/Python 3 compatibility modules -- especially the famous
 -- were created, they were written from the point of view of a Python 2
 programmer starting to grok Python 3.
 
-It is 2013.
+It is 2015.
 
-Python 3.3 is here.
+Python 3.4 is here.
 
 When thou writeth Python, thou shalt write Python 3 and, just for a while,
 ensure that the thing worketh on Python 2.7 and, possibly, even 2.6.
