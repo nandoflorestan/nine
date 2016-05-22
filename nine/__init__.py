@@ -187,12 +187,15 @@ _moved = {  # Mapping from Python 3 to Python 2 location. May need improvement.
 
 
 def nimport(spec):
-    """Given a spec such as "os.path:join", imports either a module or
-    a name from a module, and returns it. Example usage::
+    """Given a Python 3 resource spec, imports and returns it.
+
+    Example usage::
 
         join = nimport('os.path:join')
 
-    The spec should provide the new location of the module or variable.
+    The ":" indicates "join" is a variable in the module "os.path".
+
+    The spec should provide the **new** location of the module or variable.
     *nine* is supposed to know the corresponding, old Python 2 location.
     Bug reports and pull requests are welcome.
     """
