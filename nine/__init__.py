@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-'''For documentation and usage, please see the file README.rst.
+"""For documentation and usage, please see the file README.rst.
 
 This module is donated to the public domain.
-'''
+"""
 
 import sys
 # Test for Python 2, not 3; don't get bitten when Python 4 appears:
@@ -59,28 +59,31 @@ else:
 # ===== Class decorators =====
 if IS_PYTHON2:
     def implements_to_string(cls):
-        '''Class decorator. You define __str__() and it is moved to
-        __unicode__() on Python 2.
+        """Class decorator that converts __str__() and __bytes__.
+
+        You define __str__() and it is moved to __unicode__() on Python 2.
 
         Additionally, if you define __bytes__(), it becomes __str__() on
         Python 2. If __bytes__() is not defined, __str__() executes
         __unicode__() and encodes the result to utf-8.
-        '''
+        """
         cls.__unicode__ = cls.__str__
         cls.__str__ = cls.__bytes__ if hasattr(cls, '__bytes__') \
             else lambda x: x.__unicode__().encode('utf-8')
         return cls
 
     def implements_iterator(cls):
-        '''Class decorator. next() has been renamed to __next__().'''
+        """Class decorator. next() has been renamed to __next__()."""
         cls.next = cls.__next__
         del cls.__next__
         return cls
 
     def implements_repr(cls):
-        '''Class decorator. You implement __repr__() returning a
-        unicode string, and in Python 2, I encode it for you.
-        '''
+        """Class decorator that wraps __repr__() in Python 2.
+
+        You implement __repr__() returning a unicode string,
+        and in Python 2, I encode it to utf-8 for you.
+        """
         cls.__repr_unicode__ = cls.__repr__
 
         def wrapper(self):
@@ -89,7 +92,7 @@ if IS_PYTHON2:
         return cls
 
     def nine(cls):
-        '''Class decorator for Python 2 and 3 compatibility of magic methods.
+        """Class decorator for Python 2 and 3 compatibility of magic methods.
 
         You define the magic methods with their Python 3 names and,
         on Python 2, they get their corresponding names. You may write:
@@ -100,7 +103,7 @@ if IS_PYTHON2:
         * __bytes__(): must return a bytes object.
 
         (*nine* is all the above class decorators in one.)
-        '''
+        """
         if hasattr(cls, '__str__'):
             cls = implements_to_string(cls)
         if hasattr(cls, '__next__'):
@@ -184,7 +187,7 @@ _moved = {  # Mapping from Python 3 to Python 2 location. May need improvement.
 
 
 def nimport(spec):
-    '''Given a spec such as "os.path:join", imports either a module or
+    """Given a spec such as "os.path:join", imports either a module or
     a name from a module, and returns it. Example usage::
 
         join = nimport('os.path:join')
@@ -192,7 +195,7 @@ def nimport(spec):
     The spec should provide the new location of the module or variable.
     *nine* is supposed to know the corresponding, old Python 2 location.
     Bug reports and pull requests are welcome.
-    '''
+    """
     assert spec
     if IS_PYTHON2:  # Get the Python 2 location of the name, first.
         spec = _moved.get(spec, spec)

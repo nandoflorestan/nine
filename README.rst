@@ -8,7 +8,7 @@ programmer starting to grok Python 3.
 
 But it is 2016. Python 3.5 is here. 3.5!!!
 
-If you use *six*, your code is compatible, but stuck with Python 2 idioms.
+If you use *six*, your code is compatible, but stuck in Python 2 idioms.
 
 **nine** turns **six** upside down. You write your code using Python 3 idioms
 -- as much as possible --, and it is the Python 2 "version" that is patched.
@@ -170,14 +170,13 @@ exhaustive, just a good start. You can upgrade one ``.py`` module at a time:
   apply the ``@nine`` decorator on the class.
 * Also apply the ``@nine`` decorator on classes that define ``__repr__()``.
 * Search for ``range`` and replace with nine's ``range`` or ``range_list``
-* Where performance matters, replace ``d.keys()`` or ``d.iterkeys()``
-  with nine's ``iterkeys(d)``
-* Where performance matters, replace ``d.values()`` or ``d.itervalues()``
-  with nine's ``itervalues(d)``
-* Where performance matters, replace ``d.items()`` or ``d.iteritems()``
-  with nine's ``iteritems(d)``
-* Where performance matters, replace ``map()``, ``zip()`` and ``filter()``
-  with nine's versions (which always return iterators).
+* Some dict methods return different things in Python 3. Only if you need
+  exactly the same behavior in both versions, replace:
+  - ``d.keys()`` or ``d.iterkeys()`` with nine's ``iterkeys(d)``;
+  - ``d.values()`` or ``d.itervalues()`` with nine's ``itervalues(d)``; and
+  - ``d.items()`` or ``d.iteritems()`` with nine's ``iteritems(d)``.
+* Notice that ``map()``, ``zip()`` and ``filter()``, in nine's versions,
+  always return iterators independently of Python version.
 
 If you had been using *six* or another compatibility library before:
 
