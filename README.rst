@@ -8,19 +8,21 @@ programmer starting to grok Python 3.
 
 But it is 2016. Python 3.5 is here. 3.5!!!
 
-**nine** turns **six** upside down. You write your code almost completely
-using Python 3 idioms, and it is the Python 2 version that is patched.
+If you use *six*, your code is compatible, but stuck with Python 2 idioms.
+
+**nine** turns **six** upside down. You write your code using Python 3 idioms
+-- as much as possible --, and it is the Python 2 "version" that is patched.
 Needless to say, this approach is more future-proof.
 
 When thou writeth Python, thou shalt write Python 3 and,
 just for a little longer, ensure that the thing worketh on Python 2.7.
 
-Honestly you should not spend one thought on 2.6 anymore, it is
+Honestly you should not spend one thought on Python 2.6 anymore, it is
 `no longer supported <https://mail.python.org/pipermail/python-dev/2013-September/128287.html>`_
 since its final release (2.6.9) in October 2013. Nobody uses 3.0 or 3.1 either.
 
-Just before Python 2 is finally phased out, thine codebase shall
-look more like 3 than like 2.
+Python 2.7 will finally meet its demise in the year 2020. So, starting now,
+thine codebase shall look more like 3 than 2.
 
 *nine* facilitates this point of view. You can write code
 that is as 3ish as possible while still supporting 2.6.
@@ -54,7 +56,8 @@ Then import variables from *nine*, as per this boilerplate::
         implements_iterator, implements_to_string, implements_repr, nine,
         nimport)
 
-I know that is ugly. In many cases you can get away with less::
+I know that is ugly. What did you expect? *nine* is 3 squared.
+OK, in many cases you can get away with less::
 
     # -*- coding: utf-8 -*-
 
@@ -66,12 +69,30 @@ But in the second case you need to remember to import the missing stuff when
 you use it, and it is not realistic to expect that you will remember, is it?
 
 
+Unicode
+=======
+
+Because of the ``unicode_literals`` import, **all string literals in the module
+become unicode objects**. No need to add a "u" prefix to each string literal.
+This is the saner approach since in Python 3 strings are unicode objects
+by default, and you can then indicate ``b"this is a byte string literal"``.
+The literals that actually need to be byte strings are very rare.
+But you wouldn't believe how many developers are irrationally afraid
+of taking this simple step...
+
+If you don't know much about Unicode, just read
+`The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!) <http://www.joelonsoftware.com/articles/Unicode.html>`_
+
+
 Importing moved stuff
 =====================
 
-Many standard library modules were renamed for Python 3, but nine can
-help. For instance, instead of writing this to import pickle::
+Many standard library modules were renamed in Python 3, but nine can
+help. The ``nimport`` function gets the new Python 3 name, but knows to
+import the old name if running in Python 2.
+For instance, instead of writing this to import pickle::
 
+    # Bad:
     try:
         import cPickle as pickle  # Python 2.x
     except ImportError:
@@ -79,6 +100,7 @@ help. For instance, instead of writing this to import pickle::
 
 ...you can write this::
 
+    # Good:
     pickle = nimport('pickle')
 
 For variables that have been moved: In the argument, please separate the module
@@ -88,6 +110,7 @@ from the variable with a colon::
 
 Want StringIO? I recommend you build lists instead. But if you really need it::
 
+    # Good:
     if IS_PYTHON2:
         from cStringIO import StringIO as BytesIO, StringIO
         NativeStringIO = BytesIO
@@ -102,7 +125,8 @@ When in doubt,
 `use the source <https://github.com/nandoflorestan/nine/blob/master/nine/__init__.py>`_!
 
 See the
-`project page at GitHub <https://github.com/nandoflorestan/nine>`_! We also have
+`project page at GitHub <https://github.com/nandoflorestan/nine>`_!
+We also have
 `continuous integration at Travis-CI <https://travis-ci.org/nandoflorestan/nine>`_.
 
 
@@ -121,6 +145,14 @@ on Python 2, they get their corresponding names. You may write:
 * ``__repr__()``: must return a unicode string.
 * ``__bytes__()``: must return a bytes object.
 
+Example::
+
+    @nine
+    class MyClass(object):
+
+        def __str__(self):
+            return "MyClass"  # a unicode string
+
 
 Porting steps
 =============
@@ -130,11 +162,13 @@ compatibility, you can start by following this list of tasks. It isn't
 exhaustive, just a good start. You can upgrade one ``.py`` module at a time:
 
 * Add our header as mentioned above.
+* Replace ocurrences of the print statement with the print function
+  (this roughly means, add parentheses).
 * Replace ``str()``, usually with nine's ``native_str()`` or with ``bytes()``.
 * Replace ``unicode()`` with ``str()`` and ``from nine import str``
 * Replace ``__unicode__()`` methods with ``__str__()`` methods;
-  apply the *nine* decorator on the class.
-* Also apply the *nine* decorator on classes that define ``__repr__()``.
+  apply the ``@nine`` decorator on the class.
+* Also apply the ``@nine`` decorator on classes that define ``__repr__()``.
 * Search for ``range`` and replace with nine's ``range`` or ``range_list``
 * Where performance matters, replace ``d.keys()`` or ``d.iterkeys()``
   with nine's ``iterkeys(d)``
@@ -150,3 +184,7 @@ If you had been using *six* or another compatibility library before:
 * Replace ``string_types`` with nine's ``basestring``
 
 Then run your tests in all the Python versions you wish to support.
+
+If I forgot to mention anything, could you
+`make a pull request <https://github.com/nandoflorestan/nine>`_, for the
+benefit of other developers?
