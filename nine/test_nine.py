@@ -8,6 +8,7 @@ import unittest
 
 
 class TestNine(unittest.TestCase):
+
     def test_import(self):
         from nine import (
             IS_PYTHON2, str, basestring, native_str,

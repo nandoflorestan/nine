@@ -90,6 +90,7 @@ if IS_PYTHON2:
 
     def nine(cls):
         '''Class decorator for Python 2 and 3 compatibility of magic methods.
+
         You define the magic methods with their Python 3 names and,
         on Python 2, they get their corresponding names. You may write:
 
