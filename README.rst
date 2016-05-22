@@ -172,9 +172,10 @@ exhaustive, just a good start. You can upgrade one ``.py`` module at a time:
 * Search for ``range`` and replace with nine's ``range`` or ``range_list``
 * Some dict methods return different things in Python 3. Only if you need
   exactly the same behavior in both versions, replace:
-  - ``d.keys()`` or ``d.iterkeys()`` with nine's ``iterkeys(d)``;
-  - ``d.values()`` or ``d.itervalues()`` with nine's ``itervalues(d)``; and
-  - ``d.items()`` or ``d.iteritems()`` with nine's ``iteritems(d)``.
+  * ``d.keys()`` or ``d.iterkeys()`` with nine's ``iterkeys(d)``;
+  * ``d.values()`` or ``d.itervalues()`` with nine's ``itervalues(d)``; and
+  * ``d.items()`` or ``d.iteritems()`` with nine's ``iteritems(d)``.
+
 * Notice that ``map()``, ``zip()`` and ``filter()``, in nine's versions,
   always return iterators independently of Python version.
 
