@@ -4,11 +4,8 @@ Let's write Python 3 right now!
 When the best Python 2/Python 3 compatibility modules -- especially the famous
 `*six* library invented by Benjamin Peterson <https://pypi.python.org/pypi/six>`_
 -- were created, they were written from the point of view of a Python 2
-programmer starting to grok Python 3.
-
-But it is 2016. Python 3.5 is here. 3.5!!!
-
-If you use *six*, your code is compatible, but stuck in Python 2 idioms.
+programmer starting to grok Python 3.  If you use *six*,
+your code is compatible, but stuck in Python 2 idioms.
 
 **nine** turns **six** upside down. You write your code using Python 3 idioms
 -- as much as possible --, and it is the Python 2 "version" that is patched.
@@ -17,21 +14,23 @@ Needless to say, this approach is more future-proof.
 When thou writeth Python, thou shalt write Python 3 and,
 just for a little longer, ensure that the thing worketh on Python 2.7.
 
-Honestly you should not spend one thought on Python 2.6 anymore, it is
-`no longer supported <https://mail.python.org/pipermail/python-dev/2013-September/128287.html>`_
-since its final release (2.6.9) in October 2013. Nobody uses 3.0 or 3.1 either.
-
-Python 2.7 will finally meet its demise in the year 2020. So, starting now,
-thine codebase shall look more like 3 than 2.
-
 *nine* facilitates this point of view. You can write code
 that is as 3ish as possible while still supporting 2.6.
-Very comfortable for new projects.
 
 For instance, you don't type ``unicode`` anymore, you type ``str``, and *nine*
 makes ``str`` point to ``unicode`` on Python 2 (if you use our boilerplate).
 Also, ``map``, ``zip`` and ``filter`` have Python 3 behaviour, on Python 2,
 meaning they return iterators, not lists.
+
+Honestly you should not spend one thought on Python 2.6 anymore, it is
+`no longer supported <https://mail.python.org/pipermail/python-dev/2013-September/128287.html>`_
+since its final release (2.6.9) in October 2013. Nobody uses 3.0 or 3.1 either.
+
+Python 2.7 has finally met its demise on the first day of 2020.
+
+*nine* is extremely stable and unlikely to change since it solves an old
+problem that never changes.  Nobody should be surprised if *nine* isn't
+updated for months or even years.
 
 The author(s) of *nine* donate this module to the public domain.
 
