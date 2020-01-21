@@ -6,10 +6,10 @@ This module is donated to the public domain.
 """
 
 import sys
+
 # Test for Python 2, not 3; don't get bitten when Python 4 appears:
 IS_PYTHON2 = (sys.version_info[0] == 2)
 IS_PYPY = hasattr(sys, 'pypy_translation_info')
-del sys
 from importlib import import_module
 
 if IS_PYTHON2:  # Rename Python 2 builtins so they become like Python 3
@@ -127,7 +127,6 @@ _moved = {  # Mapping from Python 3 to Python 2 location. May need improvement.
     'reprlib': 'repr',
     'socketserver': 'SocketServer',
     '_thread': 'thread',
-    '_dummy_thread': 'dummy_thread',
     'tkinter': 'Tkinter',
     'http.client':    'httplib',
     'http.cookiejar': 'cookielib',
@@ -184,6 +183,10 @@ _moved = {  # Mapping from Python 3 to Python 2 location. May need improvement.
     'urllib.request:CacheFTPHandler':        'urllib2:CacheFTPHandler',
     'urllib.request:UnknownHandler':         'urllib2:UnknownHandler',
 }
+if sys.version_info < (3, 9):
+    # dummy_thread has been removed from Python 3.9
+    # https://bugs.python.org/issue37312
+    _moved['_dummy_thread'] = 'dummy_thread'
 
 
 def nimport(spec):
@@ -214,3 +217,6 @@ def nimport(spec):
         name = None
     module = import_module(module)
     return getattr(module, name) if name else module
+
+# don't export nine.six
+del sys
