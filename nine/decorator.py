@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-'''*nine* is about Python 2 and 3 compatibility, but I have taken the
+"""*nine* is about Python 2 and 3 compatibility, but I have taken the
 liberty of including something else in it. The *reify* decorator is
 so useful that it should come with Python, in the standard library.
 While it doesn't, the next best thing is for it to be included in a
@@ -10,14 +10,13 @@ The *reify* decorator comes from Pyramid_ source code. This is fair use
 because it is only one function out of hundreds.
 
 .. _Pyramid: https://pypi.python.org/pypi/pyramid
-'''
+"""
 
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 
 class reify(object):
-    """ Use as a class method decorator.  It operates almost exactly like the
+    """Use as a class method decorator.  It operates almost exactly like the
     Python ``@property`` decorator, but it puts the result of the method it
     decorates into the instance dict after the first call, effectively
     replacing the function it decorates with an instance variable.  It is, in
@@ -49,7 +48,7 @@ class reify(object):
         self.wrapped = wrapped
         try:
             self.__doc__ = wrapped.__doc__
-        except:  # pragma: no cover
+        except Exception:  # pragma: no cover
             pass
 
     def __get__(self, inst, objtype=None):
