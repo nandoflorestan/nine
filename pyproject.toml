@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nine"
-version = "1.1.1.dev1"
+version = "1.2.0"
 description = "Python 2 / 3 compatibility, like six, but favouring Python 3"
 readme = "README.rst"
 authors = ["Nando Florestan <nandoflorestan@gmail.com>"]
