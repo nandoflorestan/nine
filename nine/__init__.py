@@ -121,7 +121,6 @@ if IS_PYTHON2:
             cls = implements_repr(cls)
         return cls
 
-
 else:  # On Python 3, these class decorators do nothing:
     implements_to_string = (
         implements_iterator
@@ -162,8 +161,8 @@ _moved = {  # Mapping from Python 3 to Python 2 location. May need improvement.
     "urllib.request:url2pathname": "urllib:url2pathname",
     "urllib.request:urlcleanup": "urllib:urlcleanup",
     "urllib.request:urlretrieve": "urllib:urlretrieve",
-    "urllib.request:URLopener": "urllib:URLopener",
-    "urllib.request:FancyURLopener": "urllib:FancyURLopener",
+    # "urllib.request:URLopener": "urllib:URLopener",
+    # "urllib.request:FancyURLopener": "urllib:FancyURLopener",
     "urllib.request:urlopen": "urllib2:urlopen",
     "urllib.request:install_opener": "urllib2:install_opener",
     "urllib.request:build_opener": "urllib2:build_opener",
